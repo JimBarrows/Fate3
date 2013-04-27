@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fate 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Fate 3 Helper</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="#">Home</a></li>
+              <li><a href="#games">Games</a></li>
+              <li><a href="#characters">Characters</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div id="content" class="container">
+
+    </div> <!-- /container -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/backbone-min.js"></script>
+    <script src="js/router.js"></script>
+		<script src="js/aspect.js"></script>
+		<script src="js/character.js"></script>
+		<script src="js/game.js"></script>
+		<script src="js/game-form.js"></script>
+		<script src="js/games-view.js"></script>
+    <script src="js/index.js"></script>
+		<script type="text/javascript">
+			$(function() {
+			index = new Index();
+			index.render();
+			router = new Router();
+			Backbone.history.start();
+			});
+		</script>
+
+		<script type="text/html" id="index_view">
+      <h1>Bootstrap starter template</h1>
+      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+		</script>
+		<script type="text/html" id="games_view">
+			<div class="page-header">
+				<h1>Games </h1>
+			</div>
+			<table class="table table-striped table-bordered">
+				<caption>
+					<button id="add_game" class="btn">Add</button>
+				</caption>
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Setting/Scale</td>
+					</tr>
+				</thead>
+				<tbody id="game_table_body">
+				</tbody>
+			</table>
+		</script>
+		<script type="text/html" id="game_form">
+			<div class="page-header">
+				<h1>Game</h1>
+			</div>
+			<form class="form-horizontal">
+				<div class="row">
+					<div class="control-group">
+						<label class="control-label" for="name">Name</label>
+						<div class="controls">
+							<input type="text" name="name"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="setting">Setting/Scale</label>
+						<div class="controls">
+							<input type="text" name="setting"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h2>Issues</h2>
+					<div class="span6">
+						<h3>Current</h2>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="current"/>
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<h3>Pending</h3>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" name="pending"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h2>Faces &amp; Places</h2>
+					<div class="well">
+						<div class="control-group">
+							<label class="control-label" for="faceName">Name</label>
+							<div class="controls">
+								<input type="text" name="faceName"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="setting">Issue / Aspect</label>
+							<div class="controls">
+								<input type="text" name="issue"/>
+							</div>
+						</div>					
+					</div>
+				</div>
+				<div class="row">
+					<div class="span6">
+						<h2>Dials</h2>
+						<div class="control-group">
+							<label class="control-label" for="numberOfAspects">Number of Aspects</label>
+							<div class="controls">
+								<input type="number" name="numberOfAspects" value="5"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="numberOfPhases">Number of Phases</label>
+							<div class="controls">
+								<input type="number" name="numberOfPhases" value="3"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="skillCap">Skill Cap</label>
+							<div class="controls">
+								<select  name="skillCap" >
+									<option value="4">Great</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="faceName">Skill Pyramid or Column</label>
+							<div class="controls">
+								<label class="radio inline">
+									<input type="radio" name="pyramidOrColumn" value="pyramid" selected/>
+									Pyramid
+								</label>
+								<label class="radio inline">
+									<input type="radio" name="pyramidOrColumn" value="column"/>
+									Column
+								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="numberOfColumns">Number of Columns</label>
+							<div class="controls">
+								<input type="number" name="numberOfColumns"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="refreshRate">Refresh Rate</label>
+							<div class="controls">
+								<input type="number" name="refreshRate" value="3"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="numberOfInitialStunts">Number of Initial Stunts</label>
+							<div class="controls">
+								<input type="number" name="numberOfInitialStunts" value="3"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="typesOfStressTracks">Types of Stress Tracks</label>
+							<div class="controls">
+								<input type="text" name="typesOfStressTracks" value="Physical, Mental"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="defaultNumberOfStressBoxes">Default Number of Stress Boxes</label>
+							<div class="controls">
+								<input type="number" name="defaultNumberOfStressBoxes" value="2"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="defaultConsequenceSlots">Default Consequence Slots</label>
+							<div class="controls">
+								<input type="text" name="defaultConsequenceSlots" value="2/4/6"/>
+							</div>
+						</div>
+					</div>
+					<div class="span6">
+						<h2>Skills<h2>
+					</div>
+				</div>
+				<div class="row">
+					<h2>Stunts &amp; Extras</h2>
+				</div>
+			</form>
+		</script>
+  </body>
+</html>
