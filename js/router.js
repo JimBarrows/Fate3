@@ -10,6 +10,6 @@ var Router = Backbone.Router.extend({
 		}
 
 		,games: function() {
-				index.gameCollectionView.render();
+				index.showGameCollectionView();
 		}
 });

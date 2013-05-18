@@ -51,11 +51,20 @@
 		<script src="js/aspect.js"></script>
 		<script src="js/character.js"></script>
 		<script src="js/game.js"></script>
+		<script src="js/issue-view.js"></script>
 		<script src="js/game-form.js"></script>
 		<script src="js/games-view.js"></script>
     <script src="js/index.js"></script>
 		<script type="text/javascript">
 			$(function() {
+			Backbone.View.prototype.close = function() {
+			this.remove();
+			this.unbind();
+			this.stopListening();
+			if( this.onClose) {
+			this.onClose();
+			}
+			}
 			index = new Index();
 			index.render();
 			router = new Router();
@@ -94,13 +103,13 @@
 					<div class="control-group">
 						<label class="control-label" for="name">Name</label>
 						<div class="controls">
-							<input type="text" name="name"/>
+							<input type="text" name="name" value="<%=game.get('name')%>"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="setting">Setting/Scale</label>
 						<div class="controls">
-							<input type="text" name="setting"/>
+							<input type="text" name="setting" value="<%=game.get('setting')%>"/>
 						</div>
 					</div>
 				</div>
@@ -108,18 +117,12 @@
 					<h2>Issues</h2>
 					<div class="span6">
 						<h3>Current</h2>
-						<div class="control-group">
-							<div class="controls">
-								<input type="text" name="current"/>
-							</div>
+						<div id="currentIssueList">
 						</div>
 					</div>
 					<div class="span6">
 						<h3>Pending</h3>
-						<div class="control-group">
-							<div class="controls">
-								<input type="text" name="pending"/>
-							</div>
+						<div id="pendingIssueList">
 						</div>
 					</div>
 				</div>
@@ -221,6 +224,9 @@
 					<h2>Stunts &amp; Extras</h2>
 				</div>
 			</form>
+		</script>
+		<script type="text/html" id="issue_view">
+			<p><% model.name%></p>
 		</script>
   </body>
 </html>
