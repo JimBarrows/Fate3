@@ -55,22 +55,8 @@
 		<script src="js/game-form.js"></script>
 		<script src="js/games-view.js"></script>
     <script src="js/index.js"></script>
-		<script type="text/javascript">
-			$(function() {
-			Backbone.View.prototype.close = function() {
-			this.remove();
-			this.unbind();
-			this.stopListening();
-			if( this.onClose) {
-			this.onClose();
-			}
-			}
-			index = new Index();
-			index.render();
-			router = new Router();
-			Backbone.history.start();
-			});
-		</script>
+    <script src="js/Initialize.js"></script>
+
 
 		<script type="text/html" id="index_view">
       <h1>Bootstrap starter template</h1>
@@ -80,17 +66,21 @@
 			<div class="page-header">
 				<h1>Games </h1>
 			</div>
+			<button id="add_game" class="btn btn-primary"><li class="icon-plus-sign icon-white"></li>Add Game</button>
 			<table class="table table-striped table-bordered">
-				<caption>
-					<button id="add_game" class="btn">Add</button>
-				</caption>
 				<thead>
 					<tr>
-						<td>Name</td>
-						<td>Setting/Scale</td>
+						<th>Name</th>
+						<th>Setting/Scale</th>
 					</tr>
 				</thead>
 				<tbody id="game_table_body">
+					<% gameCollection.each(function(game){ %>
+					<tr>
+						<td><%= game.get('name') %></td>
+						<td><%= game.get('setting') %></td>
+					</tr>
+					<% }); %>
 				</tbody>
 			</table>
 		</script>

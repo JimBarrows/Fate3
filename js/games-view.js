@@ -14,12 +14,12 @@ var GamesView = Backbone.View.extend({
 
 		,render: function() {
 				var template = _.template( $("#games_view").html());
-				$(this.el).html( template());
+				$(this.el).html( template({gameCollection: this.collection}));
 				return this;
 		}
 
-		,addGame: function( event) {
-				var gameForm = new GameForm();
-				gameForm.render();
+		,addGame: function(e) {
+				e.preventDefault();
 		}
+
 });
