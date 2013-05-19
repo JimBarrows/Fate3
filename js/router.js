@@ -3,7 +3,8 @@ var Router = Backbone.Router.extend({
 		routes: {
 				"" : "index"
 				,"games" : "games"
-				,"games/add" : "gamesAdd"
+				,"games/add" : "gameAdd"
+				,"games/:id" : "showGame"
 		}
 
 		,index: function() {
@@ -14,7 +15,12 @@ var Router = Backbone.Router.extend({
 				index.showGameCollectionView();
 		}
 
-		,gamesAdd: function() {
+		,gameAdd: function() {
 				index.showGamesAddForm();
+		}
+
+		,showGame: function( id) {
+				var game = index.gameCollection.get(id);
+				index.showGameForm( game);
 		}
 });

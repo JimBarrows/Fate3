@@ -9,6 +9,12 @@ var Index = Backbone.View.extend({
 						,{name: 'Game 2'
 							,setting: 'Setting 2'}
 				]);
+
+				vent.bind("game:show", function( cid) {
+						var game = self.gameCollection.get(cid);
+						self.showGameForm( game );
+						router.navigate("/games/" + game.cid);
+				});
 /*
 				this.gameCollection.fetch({
 						error: function(collection, response) {
@@ -29,8 +35,10 @@ var Index = Backbone.View.extend({
 				
 		}
 
-		,showGameForm: function() {
-				this.showView( new GameForm({model: new Game()}));
+		,showGameForm: function( model) {
+				this.showView( new GameForm({
+						model: model
+				}));
 		}
 
 		,showView: function(view) {

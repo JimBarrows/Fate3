@@ -82,6 +82,7 @@ var Game = Backbone.Model.extend({
 		,addPlace: function( place) {
 				return this.places.create(place);
 		}
+
 });
 
 var GameCollection = Backbone.Collection.extend({

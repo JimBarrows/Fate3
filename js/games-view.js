@@ -10,16 +10,23 @@ var GamesView = Backbone.View.extend({
 
 		,events: {
 				'click #add_game' : 'addGame'
+				,'click .gameRow' : 'editGame'
 		}
 
 		,render: function() {
 				var template = _.template( $("#games_view").html());
-				$(this.el).html( template({gameCollection: this.collection}));
+				$(this.el).html( template({
+						gameCollection: this.collection
+				}));
 				return this;
 		}
 
 		,addGame: function(e) {
 				e.preventDefault();
 		}
-
+		,editGame: function( e) {
+				e.preventDefault();
+				var cid = $(e.currentTarget).data("cid")
+				vent.trigger("game:show", cid);
+		}
 });

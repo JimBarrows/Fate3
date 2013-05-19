@@ -47,6 +47,7 @@
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/underscore-min.js"></script>
     <script src="js/lib/backbone-min.js"></script>
+    <script src="js/lib/Alert.js"></script>
     <script src="js/router.js"></script>
 		<script src="js/aspect.js"></script>
 		<script src="js/character.js"></script>
@@ -74,9 +75,9 @@
 						<th>Setting/Scale</th>
 					</tr>
 				</thead>
-				<tbody id="game_table_body">
+				<tbody>
 					<% gameCollection.each(function(game){ %>
-					<tr>
+					<tr class="gameRow" data-cid="<%= game.cid %>">
 						<td><%= game.get('name') %></td>
 						<td><%= game.get('setting') %></td>
 					</tr>
@@ -87,6 +88,8 @@
 		<script type="text/html" id="game_form">
 			<div class="page-header">
 				<h1>Game</h1>
+			</div>
+			<div class="error">
 			</div>
 			<form class="form-horizontal">
 				<div class="row">
@@ -102,6 +105,8 @@
 							<input type="text" name="setting" value="<%=game.get('setting')%>"/>
 						</div>
 					</div>
+					<button class="btn btn-primary save">Save</button>
+					<button class="btn btn-default cancel">Cancel</button>
 				</div>
 				<div class="row">
 					<h2>Issues</h2>
