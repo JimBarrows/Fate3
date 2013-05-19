@@ -16,7 +16,7 @@ var Router = Backbone.Router.extend({
 		}
 
 		,gameAdd: function() {
-				index.showGamesAddForm();
+				index.showGameForm( new Game());
 		}
 
 		,showGame: function( id) {

@@ -11,9 +11,15 @@ var Index = Backbone.View.extend({
 				]);
 
 				vent.bind("game:show", function( cid) {
-						var game = self.gameCollection.get(cid);
+						if( cid) {
+								var game = self.gameCollection.get(cid);
+								router.navigate("/games/" + game.cid);
+						} else {
+								var game = new Game();
+								router.navigate("/games/add");
+						}
 						self.showGameForm( game );
-						router.navigate("/games/" + game.cid);
+						
 				});
 				vent.bind("game:cancel", function() {
 						self.showGameCollectionView();
@@ -23,6 +29,9 @@ var Index = Backbone.View.extend({
 						self.showGameCollectionView();
 						router.navigate("/games");
 				});
+				vent.bind("game:new", function( newGame) {
+						self.gameCollection.add( newGame);
+				})
 /*
 				this.gameCollection.fetch({
 						error: function(collection, response) {

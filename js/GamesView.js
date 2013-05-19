@@ -23,6 +23,7 @@ var GamesView = Backbone.View.extend({
 
 		,addGame: function(e) {
 				e.preventDefault();
+				vent.trigger("game:show");
 		}
 		,editGame: function( e) {
 				e.preventDefault();
