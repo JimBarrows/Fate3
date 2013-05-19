@@ -40,7 +40,7 @@ var GameForm = Backbone.View.extend({
 						,error: function(model, xhr, options) {
 								AlertView.msg(self.$(".error"), {
 										alert:'error'
-										,msg: "Game " + self.model.get('name') + "could not be saved.   "+ xhr.response
+										,msg: "Game " + self.model.get('name') + "could not be saved.   "
 								});
 						}
 				});
