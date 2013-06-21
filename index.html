@@ -18,7 +18,7 @@
   </head>
 
   <body>
-
+		<div id="app">
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -40,29 +40,15 @@
     </div>
 
     <div id="content" class="container">
-
     </div> <!-- /container -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-    <script src="js/lib/bootstrap.js"></script>
-    <script src="js/lib/underscore-min.js"></script>
-    <script src="js/lib/backbone-min.js"></script>
-    <script src="js/lib/Alert.js"></script>
-    <script src="js/Router.js"></script>
-		<script src="js/AspectModel.js"></script>
-		<script src="js/CharacterModel.js"></script>
-		<script src="js/GameModel.js"></script>
-		<script src="js/IssueView.js"></script>
-		<script src="js/GameForm.js"></script>
-		<script src="js/GamesView.js"></script>
-    <script src="js/Index.js"></script>
-    <script src="js/Initialize.js"></script>
+		</div><!-- app -->
 
 
-		<script type="text/html" id="index_view">
+		<script type="text/x-underscore-template" id="index_view">
       <h1>Bootstrap starter template</h1>
       <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 		</script>
+
 		<script type="text/html" id="games_view">
 			<div class="page-header">
 				<h1>Games </h1>
@@ -85,6 +71,7 @@
 				</tbody>
 			</table>
 		</script>
+
 		<script type="text/html" id="game_form">
 			<div class="page-header">
 				<h1>Game</h1>
@@ -111,13 +98,13 @@
 				<div class="row">
 					<h2>Issues</h2>
 					<div class="span6">
-						<h3>Current</h2>
-						<div id="currentIssueList">
+						<h3>Current</h3>
+						<div id="currentIssues">
 						</div>
 					</div>
 					<div class="span6">
 						<h3>Pending</h3>
-						<div id="pendingIssueList">
+						<div id="pendingIssues">
 						</div>
 					</div>
 				</div>
@@ -220,8 +207,33 @@
 				</div>
 			</form>
 		</script>
-		<script type="text/html" id="issue_view">
-			<p><% model.name%></p>
+
+		<script type="text/x-underscore-template" id="issue_view">
+			<input type="text"/>
+			<table>
+				<tbody>
+					<tr>
+						<td>Issue 1</td>
+						<td><button class="btn btn-mini btn-danger" type="button"><li class="icon-remove"/></button></td>
+					</tr>
+				</tbody>
+			</table>
 		</script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/underscore-min.js"></script>
+    <script src="js/lib/backbone-min.js"></script>
+    <script src="js/lib/Alert.js"></script>
+    <script src="js/Router.js"></script>
+		<script src="js/AspectModel.js"></script>
+		<script src="js/CharacterModel.js"></script>
+		<script src="js/GameModel.js"></script>
+		<script src="js/IssueView.js"></script>
+		<script src="js/GameForm.js"></script>
+		<script src="js/GamesView.js"></script>
+    <script src="js/Index.js"></script>
+    <script src="js/Initialize.js"></script>
+
   </body>
 </html>

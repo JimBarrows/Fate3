@@ -1,6 +1,6 @@
 var Index = Backbone.View.extend({
 		el: $("body")
-
+		,template: _.template( $("#index_view").html())
 		,initialize: function(){
 				var self = this;
 				this.gameCollection = new GameCollection([
@@ -42,8 +42,7 @@ var Index = Backbone.View.extend({
 		}
 
 		,render: function() {
-				var template = _.template( $("#index_view").html())
-				$("#content").html( template());
+				$("#content").html( this.template());
 				return this;
 		}
 

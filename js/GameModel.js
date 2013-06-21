@@ -43,7 +43,8 @@ var Game = Backbone.Model.extend({
 		defaults: {
 				name: 'Game Name'
 				,setting: 'Setting/Scale'
-				,issues: []
+				,currentIssues: []
+				,impendingIssues: []
 				,faces:  []   //characters
 				,places: []
 				,skillDescriptions: []
@@ -63,7 +64,8 @@ var Game = Backbone.Model.extend({
 
 		,initialize: function() {
 				var self = this;
-				this.issues = new IssueCollection(this.get('issues'));
+				this.attributes.currentIssues = new IssueCollection(this.get('currentIssues'));
+				this.attributes.impendingIssues = new IssueCollection(this.get('impendingIssues'));
 				this.faces = new CharacterCollection(this.get('faces'));
 				this.places = new PlaceCollection(this.get('places'));
 		}
