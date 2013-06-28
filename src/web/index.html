@@ -92,38 +92,6 @@
 							<input type="text" name="setting" value="<%=game.get('setting')%>"/>
 						</div>
 					</div>
-					<button class="btn btn-primary save">Save</button>
-					<button class="btn btn-default cancel">Cancel</button>
-				</div>
-				<div class="row">
-					<h2>Issues</h2>
-					<div class="span6">
-						<h3>Current</h3>
-						<div id="currentIssues">
-						</div>
-					</div>
-					<div class="span6">
-						<h3>Pending</h3>
-						<div id="pendingIssues">
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<h2>Faces &amp; Places</h2>
-					<div class="well">
-						<div class="control-group">
-							<label class="control-label" for="faceName">Name</label>
-							<div class="controls">
-								<input type="text" name="faceName"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="setting">Issue / Aspect</label>
-							<div class="controls">
-								<input type="text" name="issue"/>
-							</div>
-						</div>					
-					</div>
 				</div>
 				<div class="row">
 					<div class="span6">
@@ -131,20 +99,24 @@
 						<div class="control-group">
 							<label class="control-label" for="numberOfAspects">Number of Aspects</label>
 							<div class="controls">
-								<input type="number" name="numberOfAspects" value="5"/>
+								<input type="number" name="numberOfAspects" value="<%=game.get('numberOfAspects')%>"/>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="numberOfPhases">Number of Phases</label>
 							<div class="controls">
-								<input type="number" name="numberOfPhases" value="3"/>
+								<input type="number" name="numberOfPhases" value="<%=game.get('numberOfPhases')%>"/>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="skillCap">Skill Cap</label>
 							<div class="controls">
 								<select  name="skillCap" >
-									<option value="4">Great</option>
+									<option value="1" <% if (game.get('skillCap') == 1) {print("selected")} %>>Average</option>
+									<option value="2" <% if (game.get('skillCap') == 2) {print("selected")} %>>Fair</option>									
+									<option value="3" <% if (game.get('skillCap') == 3) {print("selected")} %>>Good</option>									
+									<option value="4" <% if (game.get('skillCap') == 4) {print("selected")} %>>Great</option>									
+									<option value="5" <% if (game.get('skillCap') == 5) {print("selected")} %>>Superb</option>
 								</select>
 							</div>
 						</div>
@@ -152,11 +124,11 @@
 							<label class="control-label" for="faceName">Skill Pyramid or Column</label>
 							<div class="controls">
 								<label class="radio inline">
-									<input type="radio" name="pyramidOrColumn" value="pyramid" selected/>
+									<input type="radio" name="pyramidOrColumn" value="pyramid" <% if (game.get('skillOrganization') == 'pyramid') {print("checked")}%>/>
 									Pyramid
 								</label>
 								<label class="radio inline">
-									<input type="radio" name="pyramidOrColumn" value="column"/>
+									<input type="radio" name="pyramidOrColumn" value="column" <% if (game.get('skillOrganization') == 'column') {print("checked")}%>/>
 									Column
 								</label>
 							</div>
@@ -164,7 +136,7 @@
 						<div class="control-group">
 							<label class="control-label" for="numberOfColumns">Number of Columns</label>
 							<div class="controls">
-								<input type="number" name="numberOfColumns"/>
+								<input type="number" name="numberOfColumns" <% if (game.get('skillOrganization') == 'pyramid') { print("disabled=true") } else { print(" value=" + game.get('numberOfColumns'))}%> />
 							</div>
 						</div>
 						<div class="control-group">
@@ -198,12 +170,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="span6">
-						<h2>Skills<h2>
-					</div>
 				</div>
 				<div class="row">
-					<h2>Stunts &amp; Extras</h2>
+					<button class="btn btn-primary save">Save</button>
+					<button class="btn btn-default cancel">Cancel</button>
 				</div>
 			</form>
 		</script>

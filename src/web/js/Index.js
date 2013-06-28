@@ -3,12 +3,8 @@ var Index = Backbone.View.extend({
 		,template: _.template( $("#index_view").html())
 		,initialize: function(){
 				var self = this;
-				this.gameCollection = new GameCollection([
-						{name: 'Game 1'
-						 ,setting: 'Setting 1'}
-						,{name: 'Game 2'
-							,setting: 'Setting 2'}
-				]);
+				this.gameCollection = new GameCollection();
+				this.gameCollection.fetch();
 
 				vent.bind("game:show", function( cid) {
 						if( cid) {
@@ -26,11 +22,12 @@ var Index = Backbone.View.extend({
 						router.navigate("/games");
 				});
 				vent.bind("game:save", function(id) {
+						self.gameCollection.fetch();
 						self.showGameCollectionView();
 						router.navigate("/games");
 				});
 				vent.bind("game:new", function( newGame) {
-						self.gameCollection.add( newGame);
+						self.gameCollection.fetch();
 				})
 /*
 				this.gameCollection.fetch({
