@@ -10,5 +10,4 @@
 
 (define-easy-handler (index :uri *games*) () 
 	(setf (content-type*) "application/json")
-	(encode-json-to-string (list (make-instance 'game :name "Name 1" :setting "Setting 1")
-															 (make-instance 'game :name "Name2" :setting "Setting 2"))))
+	(encode-json-to-string (repository::list-data *game-repository*)))

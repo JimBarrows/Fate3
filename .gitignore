@@ -1,6 +1,7 @@
 *~
 *.bak
 *.class
+*.data
 *.ear
 *.eprj
 *.fasl

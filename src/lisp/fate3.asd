@@ -3,7 +3,8 @@
   :depends-on (#:hunchentoot
 							 #:parenscript
 							 #:cl-json
-							 #:cl-store)
+							 #:cl-store
+							 #:uuid)
   :components ((:file "package")
 							 (:file "configuration")
 							 (:file "repository")
