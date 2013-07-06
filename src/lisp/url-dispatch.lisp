@@ -8,6 +8,25 @@
 (push (create-static-file-dispatcher-and-handler "/" "../web/index.html") 
 			*dispatch-table*)
 
-(define-easy-handler (index :uri *games*) () 
+(defmethod json::encode-json((u uuid::uuid) 
+														 &optional (stream *json-output*)) 
+	"encode a uuid class as a string, so we get the actual number"
+	(write-char #\" stream)
+	(uuid::print-object u stream)
+	(write-char #\" stream))
+
+(define-easy-handler (index :uri *games* :default-request-type :get) () 
 	(setf (content-type*) "application/json")
-	(encode-json-to-string (repository::list-data *game-repository*)))
+	(let ((request-type (request-method *request*)))
+		(cond ((eq request-type :get)
+					 (encode-json-to-string (repository::list-data *game-repository*)))
+					((eq request-type :post)
+					 (let* ((json (raw-post-data :force-text t))
+									(decoded-json (decode-json-from-string json))
+									(new-game (make-instance 'game 
+																					 :id (if (assoc :id decoded-json :test #'equalp)
+																									 (uuid::make-uuid-from-string (cdr (assoc :id decoded-json)))
+																									 (uuid::make-v4-uuid))
+																					 :name (cdr (assoc :name decoded-json)) 
+																					 :setting (cdr (assoc :setting decoded-json)))))
+						 (encode-json-to-string new-game))))))

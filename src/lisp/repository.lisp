@@ -4,8 +4,8 @@
 	(let* ((repo-name-string (string-upcase( concatenate 'string (string classname) "-repository")))
 				 (repo-name (intern repo-name-string))
 				 (repo-file-name (concatenate 'string repo-name-string ".data")))
-		(push '(id :initform (uuid::make-v4-uuid) :accessor id) slots)
-		`(progn
+		(push '(id :initform (uuid::make-v4-uuid) :initarg :id :accessor id) slots)
+		`(progn 
 			 (defclass ,classname ,superclasses
 				 ,(mapcar (lambda (slot)
 										(if (atom slot)

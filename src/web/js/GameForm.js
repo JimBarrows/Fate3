@@ -39,7 +39,7 @@ var GameForm = Backbone.View.extend({
 				if( this.model.isNew()) {
 						vent.trigger("game:new", this.model);
 				}
-				this.model.save(this.model.changedAttributes(), {
+				this.model.save( {
 						success: function(model, response, options){
 								vent.trigger("game:save", self.model.id);
 								AlertView.msg(self.$el, {
