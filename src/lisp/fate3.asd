@@ -9,6 +9,7 @@
 							 (:file "configuration")
 							 (:file "repository")
 							 (:file "models")
+							 (:file "default-data")
 							 (:file "urls")
 							 (:file "url-dispatch")
 							 (:file "bootstrap")))
