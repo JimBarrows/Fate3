@@ -1,4 +1,4 @@
-(asdf:defsystem #:fate3
+x(asdf:defsystem #:fate3
   :serial t
   :depends-on (#:hunchentoot
 							 #:parenscript

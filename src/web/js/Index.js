@@ -11,7 +11,7 @@ var Index = Backbone.View.extend({
 								var game = self.gameCollection.get(cid);
 								router.navigate("/games/" + game.cid);
 						} else {
-								var game = new Game();
+								var game = self.gameCollection.create();
 								router.navigate("/games/add");
 						}
 						self.showGameForm( game );

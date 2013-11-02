@@ -62,8 +62,6 @@ var Game = Backbone.Model.extend({
 				,defaultConsequenceSlots: '2/4/6'
 		}
 
-		,url: function() {return '/games';}
-
 		,initialize: function() {
 				var self = this;
 				this.attributes.currentIssues = new IssueCollection(this.get('currentIssues'));
