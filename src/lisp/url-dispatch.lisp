@@ -19,12 +19,13 @@
 	(uuid::print-object u stream)
 	(write-char #\" stream))
 
-(defun get-id-from-uri()
-	"Returns the id from the URI request"
-	(car (cl-ppcre:all-matches-as-strings
+;(defun get-id-from-uri()
+;	"Returns the id from the URI request"
+;	(car (cl-ppcre:all-matches-as-strings
 ;(define-easy-handler (index :uri *games* :default-request-type :get) () 
+
 (defun games-url-handler
-	(setf (content-type*) "application/json")
+;	(setf (content-type*) "application/json")
 	(let ((request-type (request-method *request*)))
 		(cond ((eq request-type :get)
 					 (encode-json-to-string (repository::list-data *game-repository*)))
@@ -32,9 +33,9 @@
 					 (let* ((json (raw-post-data :force-text t))
 									(decoded-json (decode-json-from-string json))
 									(new-game (make-instance 'game 
-																					 :id (if (assoc :id decoded-json :test #'equalp)
-																									 (uuid::make-uuid-from-string (cdr (assoc :id decoded-json)))
-																									 (uuid::make-v4-uuid))
+																					 :id ;(if (assoc :id decoded-json :test #'equalp)
+																								;	 (uuid::make-uuid-from-string (cdr (assoc :id decoded-json)))
+																									 (uuid::make-v4-uuid);)
 																					 :name (cdr (assoc :name decoded-json)) 
 																					 :setting (cdr (assoc :setting decoded-json)))))
 						 (encode-json-to-string new-game))))))
