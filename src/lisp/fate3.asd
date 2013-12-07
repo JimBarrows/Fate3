@@ -1,11 +1,12 @@
-x(asdf:defsystem #:fate3
+(asdf:defsystem #:fate3
   :serial t
   :depends-on (#:hunchentoot
 							 #:parenscript
 							 #:cl-json
 							 #:cl-store
 							 #:uuid)
-  :components ((:file "package")
+  :components ((:file "ht-routes")
+							 (:file "package")
 							 (:file "configuration")
 							 (:file "repository")
 							 (:file "models")

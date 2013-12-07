@@ -5,5 +5,5 @@
 	(:export defentity))
 
 (defpackage fate3
-	(:use :cl :hunchentoot :cl-json :repository)
+	(:use :cl :hunchentoot :ht-routes :cl-json :repository)
 	(:export start-application stop-application))

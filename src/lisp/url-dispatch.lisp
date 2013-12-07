@@ -8,6 +8,10 @@
 (push (create-static-file-dispatcher-and-handler "/" "../web/index.html") 
 			*dispatch-table*)
 
+(setq *dispatch-table* 
+			(list
+			 (create-regex-dipatcher *games* games-url-handler)))
+												
 (defmethod json::encode-json((u uuid::uuid) 
 														 &optional (stream *json-output*)) 
 	"encode a uuid class as a string, so we get the actual number"
@@ -15,7 +19,11 @@
 	(uuid::print-object u stream)
 	(write-char #\" stream))
 
-(define-easy-handler (index :uri *games* :default-request-type :get) () 
+(defun get-id-from-uri()
+	"Returns the id from the URI request"
+	(car (cl-ppcre:all-matches-as-strings
+;(define-easy-handler (index :uri *games* :default-request-type :get) () 
+(defun games-url-handler
 	(setf (content-type*) "application/json")
 	(let ((request-type (request-method *request*)))
 		(cond ((eq request-type :get)
