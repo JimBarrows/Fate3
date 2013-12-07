@@ -27,47 +27,52 @@
 				</div>
 			</div>
 			</header>
+			<div class="container">
 			{{outlet}}
+			</div>
 			<footer>Fate 3</footer>
 		</script>
 
 		<script type="text/x-handlebars" data-template-name="game/new">
 			{{page-header title="New Game"}}
-			<div class="container">
-				<div class="form-horizontal">
-					{{form-field inputName="gameName" label="Game Name" type="text"}}
-					{{form-field inputName="setting" label="Setting" type="text"}}
-					<ul class="nav nav-tabs">
-						<li {{bind-attr class="isIssuesTab:active"}}><a {{action changeTab 'issues'}}>Issues</a></li>
-						<li {{bind-attr class="isFacesTab:active"}}> <a {{action changeTab 'faces'}}>Faces</a></li>
-						<li {{bind-attr class="isPlacesTab:active"}}><a {{action changeTab 'places'}}>Places</a></li>
-						<li {{bind-attr class="isDialsTab:active"}}> <a {{action changeTab 'dials'}}>Dials</a></li>
-						<li {{bind-attr class="isSkillsTab:active"}}><a {{action changeTab 'skills'}}>Skills</a></li>
-						<li {{bind-attr class="isStuntsTab:active"}}><a {{action changeTab 'stunts'}}>Stunts</a></li>
-						<li {{bind-attr class="isExtrasTab:active"}}><a {{action changeTab 'extras'}}>Extras</a></li>
-					</ul>
-					<div class="tab-content">
-						<div {{bind-attr class=":tab-pane isIssuesTab:active"}} id="issues">
-							<h2>Issues</h2>
+			<div class="form-horizontal">
+				{{form-field inputName="gameName" label="Game Name" type="text"}}
+				{{form-field inputName="setting" label="Setting" type="text"}}
+				<ul class="nav nav-tabs">
+					<li {{bind-attr class="isIssuesTab:active"}}><a {{action changeTab 'issues'}}>Issues</a></li>
+					<li {{bind-attr class="isFacesTab:active"}}> <a {{action changeTab 'faces'}}>Faces</a></li>
+					<li {{bind-attr class="isPlacesTab:active"}}><a {{action changeTab 'places'}}>Places</a></li>
+					<li {{bind-attr class="isDialsTab:active"}}> <a {{action changeTab 'dials'}}>Dials</a></li>
+					<li {{bind-attr class="isSkillsTab:active"}}><a {{action changeTab 'skills'}}>Skills</a></li>
+					<li {{bind-attr class="isStuntsTab:active"}}><a {{action changeTab 'stunts'}}>Stunts</a></li>
+					<li {{bind-attr class="isExtrasTab:active"}}><a {{action changeTab 'extras'}}>Extras</a></li>
+				</ul>
+				<div class="tab-content">
+					<div {{bind-attr class=":tab-pane isIssuesTab:active"}} id="issues">
+						<div class="col-md-6">
+							{{issue-list listName="Current Issues" list=issues current=true parent=model }}
 						</div>
-						<div {{bind-attr class=":tab-pane isFacesTab:active"}} id="faces">
-							<h2>Faces</h2>
+						<div class="col-md-6">
+							{{issue-list listName="Pending Issues" list=issues current=false parent=model }}
 						</div>
-						<div {{bind-attr class=":tab-pane isPlacesTab:active"}} id="places">
-							<h2>Places</h2>
-						</div>
-						<div {{bind-attr class=":tab-pane isDialsTab:active"}} id="dials">
-							<h2>Dials</h2>
-						</div>
-						<div {{bind-attr class=":tab-pane isSkillsTab:active"}} id="Skills">
-							<h2>Skills</h2>
-						</div>
-						<div {{bind-attr class=":tab-pane isStuntsTab:active"}} id="Stunts">
-							<h2>Stunts</h2>
-						</div>
-						<div {{bind-attr class=":tab-pane isExtrasTab:active"}} id="Extras">
-							<h2>Extras</h2>
-						</div>
+					</div>
+					<div {{bind-attr class=":tab-pane isFacesTab:active"}} id="faces">
+						<h2>Faces</h2>
+					</div>
+					<div {{bind-attr class=":tab-pane isPlacesTab:active"}} id="places">
+						<h2>Places</h2>
+					</div>
+					<div {{bind-attr class=":tab-pane isDialsTab:active"}} id="dials">
+						<h2>Dials</h2>
+					</div>
+					<div {{bind-attr class=":tab-pane isSkillsTab:active"}} id="Skills">
+						<h2>Skills</h2>
+					</div>
+					<div {{bind-attr class=":tab-pane isStuntsTab:active"}} id="Stunts">
+						<h2>Stunts</h2>
+					</div>
+					<div {{bind-attr class=":tab-pane isExtrasTab:active"}} id="Extras">
+						<h2>Extras</h2>
 					</div>
 				</div>
 			</div>
@@ -110,7 +115,50 @@
 					</div>
 				</div>
 		</script>
+		
+		<script type="text/x-handlebars" data-template-name="components/issue-list">
+			<div class="panel panel-default">
+				<div class="panel-heading">{{listName}}</div>
+				<div class="panel-body">
 
+					<table class="table table-striped">
+
+						<tr><td>
+								{{input value=newIssue type="text" class="form-control" placeholder="New" action="add"}}
+						</td></tr>
+
+						{{#each issue in list itemController="issue"}}
+
+						<tr>
+								{{#if isEditing}}
+
+								<td>
+									{{input value=issue.name 
+									type="text" 
+									class="form-control" 
+									placeholder="New" 
+									action="save"}}
+								</td>
+
+								{{else}}
+
+								<td {{action edit 
+										on="doubleClick"}}>
+									<p>{{issue.name}}</p>
+								</td>
+								<td>
+									<button {{action delete}}  class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-trash text-right"></span></button>
+								</td>
+								</td>
+								{{/if}}
+						</tr>
+
+						{{/each}}
+
+					</table>
+				</div>
+			</div>
+		</script>
 		<script src="js/libs/jquery-1.9.1.js"></script>
 		<script src="js/libs/handlebars-1.0.0.js"></script>
 		<script src="js/libs/ember-1.1.2.js"></script>

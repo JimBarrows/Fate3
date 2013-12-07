@@ -20,6 +20,13 @@ App.GamesRoute = Ember.Route.extend({
 		}
 })
 
+App.GameNewRoute = Ember.Route.extend({
+
+		model: function() {
+				return this.store.createRecord('game')
+		}
+})
+
 App.GameNewController =  Ember.ObjectController.extend({
 		actions: {
 				changeTab: function( newTab) {
@@ -37,3 +44,44 @@ App.GameNewController =  Ember.ObjectController.extend({
 		isExtrasTab: function() { return this.get('currentTab') == 'extras'}.property('currentTab')
 
 })
+
+App.IssueController =  Ember.ObjectController.extend({
+		actions:{
+				edit: function() {
+						this.set('isEditing', true)
+				},
+				save: function() {
+						this.get('model').save()
+						this.set('isEditing', false)
+				},
+				delete: function() {
+						var model=this.get('model')
+						var game = model.get('game')
+						game.get('issues').removeObject(model)
+						game.save()
+				}
+		},
+		isEditing: false
+})
+
+App.IssueListComponent = Ember.Component.extend({
+		actions: {
+				add: function() {
+						var newAspect = this.get('newIssue')
+						if( !newAspect.trim()) {return;}
+						var store = this.get('targetObject.store');
+						var issue = store.createRecord('issue', {
+								name: newAspect,
+								current: this.get('current'),
+								game: this.get('parent')
+						})
+						this.set('newIssue','')
+						issue.save()
+						this.get('list').pushObject( issue)
+			
+				}
+		},
+		current: true,
+		newIssue: '',
+		list: []
+});
