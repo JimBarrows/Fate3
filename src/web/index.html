@@ -13,185 +13,24 @@
   </head>
 
   <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Fate 3 Helper</a>
-			</div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li><a href="#games">Games</a></li>
-          <li><a href="#characters">Characters</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-
-    <div id="content" class="container">
-    </div> <!-- /container -->
-
-
-		<script type="text/x-underscore-template" id="index_view">
-			<div class="page-header">
-				<h1>Bootstrap starter template</h1>
-			</div>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
-		</script>
-
-		<script type="text/html" id="games_view">
-			<div class="page-header">
-				<h1>Games </h1>
-			</div>
-			<button id="add_game" class="btn btn-primary"><li class="icon-plus-sign icon-white"></li>Add Game</button>
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Setting/Scale</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% gameCollection.each(function(game){ %>
-					<tr class="gameRow" data-cid="<%= game.cid %>">
-						<td><%= game.get('name') %></td>
-						<td><%= game.get('setting') %></td>
-					</tr>
-					<% }); %>
-				</tbody>
-			</table>
-		</script>
-
-		<script type="text/html" id="game_form">
-			<div class="page-header">
-				<h1>Game</h1>
-			</div>
-			<div class="error">
-			</div>
-			<form class="form-horizontal">
-				<div class="row">
-					<div class="control-group">
-						<label class="control-label" for="name">Name</label>
-						<div class="controls">
-							<input type="text" name="name" value="<%=game.get('name')%>"/>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="setting">Setting/Scale</label>
-						<div class="controls">
-							<input type="text" name="setting" value="<%=game.get('setting')%>"/>
-						</div>
-					</div>
+		<script type="text/x-handlebars" id="index">
+			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Fate 3 Helper</a>
 				</div>
-				<div class="row">
-					<div class="span6">
-						<h2>Dials</h2>
-						<div class="control-group">
-							<label class="control-label" for="numberOfAspects">Number of Aspects</label>
-							<div class="controls">
-								<input type="number" name="numberOfAspects" value="<%=game.get('numberOfAspects')%>"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="numberOfPhases">Number of Phases</label>
-							<div class="controls">
-								<input type="number" name="numberOfPhases" value="<%=game.get('numberOfPhases')%>"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="skillCap">Skill Cap</label>
-							<div class="controls">
-								<select  name="skillCap" >
-									<option value="1" <% if (game.get('skillCap') == 1) {print("selected")} %>>Average</option>
-									<option value="2" <% if (game.get('skillCap') == 2) {print("selected")} %>>Fair</option>									
-									<option value="3" <% if (game.get('skillCap') == 3) {print("selected")} %>>Good</option>									
-									<option value="4" <% if (game.get('skillCap') == 4) {print("selected")} %>>Great</option>									
-									<option value="5" <% if (game.get('skillCap') == 5) {print("selected")} %>>Superb</option>
-								</select>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="faceName">Skill Pyramid or Column</label>
-							<div class="controls">
-								<label class="radio inline">
-									<input type="radio" name="pyramidOrColumn" value="pyramid" <% if (game.get('skillOrganization') == 'pyramid') {print("checked")}%>/>
-									Pyramid
-								</label>
-								<label class="radio inline">
-									<input type="radio" name="pyramidOrColumn" value="column" <% if (game.get('skillOrganization') == 'column') {print("checked")}%>/>
-									Column
-								</label>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="numberOfColumns">Number of Columns</label>
-							<div class="controls">
-								<input type="number" name="numberOfColumns" <% if (game.get('skillOrganization') == 'pyramid') { print("disabled=true") } else { print(" value=" + game.get('numberOfColumns'))}%> />
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="refreshRate">Refresh Rate</label>
-							<div class="controls">
-								<input type="number" name="refreshRate" value="3"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="numberOfInitialStunts">Number of Initial Stunts</label>
-							<div class="controls">
-								<input type="number" name="numberOfInitialStunts" value="3"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="typesOfStressTracks">Types of Stress Tracks</label>
-							<div class="controls">
-								<input type="text" name="typesOfStressTracks" value="Physical, Mental"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="defaultNumberOfStressBoxes">Default Number of Stress Boxes</label>
-							<div class="controls">
-								<input type="number" name="defaultNumberOfStressBoxes" value="2"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="defaultConsequenceSlots">Default Consequence Slots</label>
-							<div class="controls">
-								<input type="text" name="defaultConsequenceSlots" value="2/4/6"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<button class="btn btn-primary save">Save</button>
-					<button class="btn btn-default cancel">Cancel</button>
-				</div>
-			</form>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Games</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
 		</script>
-
-		<script type="text/x-underscore-template" id="issue_view">
-			<input type="text"/>
-			<table>
-				<tbody>
-					<tr>
-						<td>Issue 1</td>
-						<td><button class="btn btn-mini btn-danger" type="button"><li class="icon-remove"/></button></td>
-					</tr>
-				</tbody>
-			</table>
-		</script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-    <script src="js/lib/bootstrap.js"></script>
-    <script src="js/lib/underscore-min.js"></script>
-    <script src="js/lib/backbone-min.js"></script>
-    <script src="js/lib/Alert.js"></script>
-    <script src="js/Router.js"></script>
-		<script src="js/AspectModel.js"></script>
-		<script src="js/CharacterModel.js"></script>
-		<script src="js/GameModel.js"></script>
-		<script src="js/IssueView.js"></script>
-		<script src="js/GameForm.js"></script>
-		<script src="js/GamesView.js"></script>
-    <script src="js/Index.js"></script>
-    <script src="js/Initialize.js"></script>
+		<script src="js/libs/jquery-1.9.1.js"></script>
+		<script src="js/libs/handlebars-1.0.0.js"></script>
+		<script src="js/libs/ember-1.1.2.js"></script>
+		<script src="js/libs/ember-data.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+		<script src="js/app.js"></script>
 
   </body>
 </html>
