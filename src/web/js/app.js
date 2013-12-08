@@ -67,11 +67,15 @@ App.IssueController =  Ember.ObjectController.extend({
 App.IssueListComponent = Ember.Component.extend({
 		actions: {
 				add: function() {
-						var newAspect = this.get('newIssue')
-						if( !newAspect.trim()) {return;}
+						var newIssue = this.get('newIssue')
+						if( !newIssue.trim()) {return;}
 						var store = this.get('targetObject.store');
-						var issue = store.createRecord('issue', {
-								name: newAspect,
+						var modelName='CurrentIssue'
+						if ( !this.get('current')){
+								modelName='PendingIssue'
+						}
+						var issue = store.createRecord(modelName, {
+								name: newIssue,
 								current: this.get('current'),
 								game: this.get('parent')
 						})

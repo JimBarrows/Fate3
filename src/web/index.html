@@ -50,10 +50,10 @@
 				<div class="tab-content">
 					<div {{bind-attr class=":tab-pane isIssuesTab:active"}} id="issues">
 						<div class="col-md-6">
-							{{issue-list listName="Current Issues" list=issues current=true parent=model }}
+							{{issue-list listName="Current Issues" list=currentIssues current=true parent=model }}
 						</div>
 						<div class="col-md-6">
-							{{issue-list listName="Pending Issues" list=issues current=false parent=model }}
+							{{issue-list listName="Pending Issues" list=pendingIssues current=false parent=model }}
 						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isFacesTab:active"}} id="faces">
