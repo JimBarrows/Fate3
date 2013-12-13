@@ -3,7 +3,8 @@ App.Game = DS.Model.extend({
 		name: DS.attr('string'),
 		setting: DS.attr('string'),
 		currentIssues: DS.hasMany('CurrentIssue', {async:'true'}),
-		pendingIssues: DS.hasMany('PendingIssue', {async:'true'})
+		pendingIssues: DS.hasMany('PendingIssue', {async:'true'}),
+		faces: DS.hasMany('CharacterRecord', {async:'true'})
 });
 
 App.PendingIssue = DS.Model.extend({
@@ -18,12 +19,6 @@ App.CurrentIssue = DS.Model.extend({
 		game: DS.belongsTo('game')
 })
 
-/*
-App.ApplicationAdapter.map('get', {
-		issues: {embedded: 'always'}
-})
-*/
-
 App.Game.FIXTURES= [
 		{
 				id     : 1,
@@ -32,10 +27,3 @@ App.Game.FIXTURES= [
 				issues : [ 1,2]
 		}
 ]
-
-/*
-App.Issue.FIXTURES= [
-		{id: 1, name: "issue 1", current: true},
-		{id: 2, name: "issue 2", current: false}
-]
-*/

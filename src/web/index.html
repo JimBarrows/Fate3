@@ -36,8 +36,19 @@
 		<script type="text/x-handlebars" data-template-name="game/new">
 			{{page-header title="New Game"}}
 			<div class="form-horizontal">
-				{{form-field inputName="gameName" label="Game Name" type="text"}}
-				{{form-field inputName="setting" label="Setting" type="text"}}
+				<div class="form-group">
+					<label for="gameName" class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-10">
+						{{input type="text" value=name class="form-control"}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="setting" class="col-sm-2 control-label">Setting</label>
+					<div class="col-sm-10">
+						{{input type="text" value=setting class="form-control"}}
+					</div>
+				</div>
+				<button {{action save}} class="btn btn-default">Save</button>
 				<ul class="nav nav-tabs">
 					<li {{bind-attr class="isIssuesTab:active"}}><a {{action changeTab 'issues'}}>Issues</a></li>
 					<li {{bind-attr class="isFacesTab:active"}}> <a {{action changeTab 'faces'}}>Faces</a></li>
@@ -57,7 +68,52 @@
 						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isFacesTab:active"}} id="faces">
-						<h2>Faces</h2>
+
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<td>Name</td>
+											<td>High Concept</td>
+											<td>Trouble</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												{{input value=newFaceName
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												{{input value=newFaceHighConcept
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												{{input value=newFaceTrouble
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												<button {{action addFace}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></button>
+											</td>
+										</tr>
+										{{#each face in faces}}
+										<tr>
+											<td>{{face.name}}</td>
+											<td>{{face.highConcept}}</td>
+											<td>{{face.trouble}}</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isPlacesTab:active"}} id="places">
 						<h2>Places</h2>
@@ -76,6 +132,20 @@
 					</div>
 				</div>
 			</div>
+		</script>
+
+		<script type="text/x-handlebars" data-template-name="components/aspect-list">
+			{{input 
+			value=aspect 
+			type="text" 
+			class="form-control" 
+			placeholder="New Aspect" 
+			action="add"}}
+			<ul>
+				{{#each aspect in list}}
+				<li>{{aspect.name}}</li>
+				{{/each}}
+			</ul>
 		</script>
 
 		<script type="text/x-handlebars" id="games">
@@ -108,12 +178,7 @@
     </script>
 
 		<script type="text/x-handlebars" data-template-name="components/form-field">
-				<div class="form-group">
-					<label for="{{inputName}}" class="col-sm-2 control-label">{{label}}</label>
-					<div class="col-sm-10">
-						<input type="{{type}}" class="form-control" id="{{inputName}}" >
-					</div>
-				</div>
+
 		</script>
 		
 		<script type="text/x-handlebars" data-template-name="components/issue-list">
@@ -165,5 +230,10 @@
 		<script src="js/libs/ember-data.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/models/Game.js"></script>
+		<script src="js/models/Character.js"></script>
+		<script src="js/components/AspectList.js"></script>
+		<script src="js/components/IssueList.js"></script>
+		<script src="js/controllers/Game.js"></script>
+		<script src="js/controllers/Issue.js"></script>
   </body>
 </html>
