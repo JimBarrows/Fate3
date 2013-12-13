@@ -9,9 +9,17 @@ App.IssueController =  Ember.ObjectController.extend({
 				},
 				delete: function() {
 						var model=this.get('model')
+
+
 						var game = model.get('game')
-						game.get('issues').removeObject(model)
-						game.save()
+						var name="pendingIssues"
+						if( model.get('current')) {
+								name="currentIssues"
+						}
+						game.get(name).removeObject(model)
+
+						model.deleteRecord()
+						model.save()
 				}
 		},
 		isEditing: false
