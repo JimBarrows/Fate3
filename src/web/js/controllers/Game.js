@@ -45,6 +45,33 @@ App.GameNewController =  Ember.ObjectController.extend({
 						this.get('content').get('places').removeObject( place)
 						place.deleteRecord()
 				},
+				addSkill: function() {
+						var game = this.get('content')
+						var newSkill = this.store.createRecord( 'SkillDescription', {
+								name: this.get('newSkillName'),
+								description: this.get('newSkillDescription'),
+								createAdvantage: this.get('newCreateAdvantage'),
+								overcome: this.get('newOvercome'),
+								attack: this.get('newAttack'),
+								defend: this.get('newDefend'),
+								game: game
+						})
+
+						var skills = game.get('skills')
+						
+						skills.pushObject( newSkill)
+
+						this.set('newSkillName', '')
+						this.set('newSkillDescription', '')
+						this.set('newCreateAdvantage', false)
+						this.set('newOvercome', false)
+						this.set('newAttack', false)
+						this.set('newDefend', false)
+				},
+				deleteSkill: function( skill) {
+						this.get('content').get('skills').removeObject( skill)
+						skill.deleteRecord()
+				},
 				save: function() {
 						this.get('model').save()
 				}

@@ -2,6 +2,18 @@ App = Ember.Application.create();
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
+Ember.RadioButton = Ember.View.extend({
+    tagName : "input",
+    type : "radio",
+    attributeBindings : [ "name", "type", "value", "checked:checked:" ],
+    click : function() {
+        this.set("selection", this.$().val())
+    },
+    checked : function() {
+        return this.get("value") == this.get("selection");   
+    }.property()
+});
+
 App.Router.map(function() {
 		this.resource('games')
 		this.resource('game', function() {
