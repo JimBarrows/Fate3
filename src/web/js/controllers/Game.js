@@ -72,6 +72,56 @@ App.GameNewController =  Ember.ObjectController.extend({
 						this.get('content').get('skills').removeObject( skill)
 						skill.deleteRecord()
 				},
+				addStunt: function() {
+						var game = this.get('content')
+						var newStunt = this.store.createRecord( 'StuntDescription', {
+								name: this.get('newStuntName'),
+								description: this.get('newStuntDescription'),
+								game: game
+						})
+
+						var stunts = game.get('stunts')
+						
+						stunts.pushObject( newStunt)
+
+						this.set('newStuntName', '')
+						this.set('newStuntDescription', '')
+				},
+				deleteStunt: function( stunt) {
+						this.get('content').get('stunts').removeObject( stunt)
+						stunt.deleteRecord()
+				},
+				addExtra: function() {
+						var game = this.get('content')
+						var newExtra = this.store.createRecord( 'ExtraDescription', {
+								name: this.get('newExtraName'),
+								description: this.get('newExtraDescription'),
+								permissions: this.get('newExtraPermissions'),
+								costs: this.get('newExtraCosts'),
+								costs: this.get('newExtraOvercome'),
+								createAdvantage: this.get('newExtraCreateAdvantage'),
+								attack: this.get('newExtraAttack'),
+								defend: this.get('newExtraDefend'),
+								game: game
+						})
+
+						var extras = game.get('extras')
+						
+						extras.pushObject( newExtra)
+
+						this.set('newExtraName', '')
+						this.set('newExtraDescription', '')
+						this.set('newExtraPermissions', '')
+						this.set('newExtraCosts', '')
+						this.set('newExtraOvercome', '')
+						this.set('newExtraCreateAnAdvantage', '')
+						this.set('newExtraAttack', '')
+						this.set('newExtraDefend', '')
+				},
+				deleteExtra: function( extra) {
+						this.get('content').get('extras').removeObject( extra)
+						extra.deleteRecord()
+				},
 				save: function() {
 						this.get('model').save()
 				}

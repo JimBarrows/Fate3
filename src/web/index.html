@@ -250,7 +250,6 @@
 						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isSkillsTab:active"}} id="Skills">
-						<h2>Skills</h2>
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<table class="table table-striped">
@@ -297,10 +296,90 @@
 						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isStuntsTab:active"}} id="Stunts">
-						<h2>Stunts</h2>
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Description</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{input type="text" value=newStuntName class="form-control"}}</td>
+											<td>{{input type="text" value=newStuntDescription class="form-control"}}</td>
+											<td><button {{action addStunt}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></td>
+										</tr>
+										{{#each stunt in stunts}}
+										<tr>
+											<td>{{stunt.name}}</td>
+											<td>{{stunt.description}}</td>
+											<td>
+												<button 
+													 {{action deleteStunt stunt}} 
+													 class="btn btn-danger btn-xs">
+													<span 
+														 class="glyphicon glyphicon-trash"/>
+												</button>
+											</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isExtrasTab:active"}} id="Extras">
-						<h2>Extras</h2>
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Description</th>
+											<th>Permissions</th>
+											<th>Costs</th>
+											<th>Overcome</th>
+											<th>Create An Advantage</th>
+											<th>Attack</th>
+											<th>Defend</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{input type="text" value=newExtraName class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraDescription class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraPermissions class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraCosts class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraOvercome class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraCreateAnAdvantage class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraAttack class="form-control"}}</td>
+											<td>{{input type="text" value=newExtraDefend class="form-control"}}</td>
+											<td><button {{action addExtra}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></td>
+										</tr>
+										{{#each extra in extras}}
+										<tr>
+											<td>{{extra.name}}</td>
+											<td>{{extra.description}}</td>
+											<td>{{extra.permissions}}</td>
+											<td>{{extra.costs}}</td>
+											<td>{{extra.overcome}}</td>
+											<td>{{extra.createAnAdvantage}}</td>
+											<td>{{extra.attack}}</td>
+											<td>{{extra.defend}}</td>
+											<td>
+												<button 
+													 {{action deleteExtra extra}} 
+													 class="btn btn-danger btn-xs">
+													<span 
+														 class="glyphicon glyphicon-trash"/>
+												</button>
+											</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
