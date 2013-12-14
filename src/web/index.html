@@ -108,6 +108,7 @@
 											<td>{{face.name}}</td>
 											<td>{{face.highConcept}}</td>
 											<td>{{face.trouble}}</td>
+											<td><button {{action deleteFace face}} class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"/></button></td>
 										</tr>
 										{{/each}}
 									</tbody>
@@ -116,7 +117,52 @@
 						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isPlacesTab:active"}} id="places">
-						<h2>Places</h2>
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<td>Name</td>
+											<td>High Concept</td>
+											<td>Trouble</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												{{input value=newPlaceName
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												{{input value=newPlaceHighConcept
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												{{input value=newPlaceTrouble
+												type="text" 
+												class="form-control" 
+												placeholder="New" }}
+											</td>
+											<td>
+												<button {{action addPlace}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></button>
+											</td>
+										</tr>
+										{{#each place in places}}
+										<tr>
+											<td>{{place.name}}</td>
+											<td>{{place.highConcept}}</td>
+											<td>{{place.trouble}}</td>
+											<td><button {{action deletePlace place}} class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"/></button></td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 					<div {{bind-attr class=":tab-pane isDialsTab:active"}} id="dials">
 						<h2>Dials</h2>

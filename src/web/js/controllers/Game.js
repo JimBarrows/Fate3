@@ -20,6 +20,31 @@ App.GameNewController =  Ember.ObjectController.extend({
 						this.set('newFaceHighConcept', '')
 						this.set('newFaceTrouble', '')
 				},
+				deleteFace: function( face) {
+						this.get('content').get('faces').removeObject( face)
+						face.deleteRecord()
+				},
+				addPlace: function() {
+						var game = this.get('content')
+						var newPlace = this.store.createRecord( 'Place', {
+								name: this.get('newPlaceName'),
+								highConcept: this.get('newPlaceHighConcept'),
+								trouble: this.get('newPlaaceTrouble'),
+								game: game
+						})
+
+						var places = game.get('places')
+						
+						places.pushObject( newPlace)
+
+						this.set('newPlaceName', '')
+						this.set('newPlaceHighConcept', '')
+						this.set('newPlaceTrouble', '')
+				},
+				deletePlace: function( place) {
+						this.get('content').get('places').removeObject( place)
+						place.deleteRecord()
+				},
 				save: function() {
 						this.get('model').save()
 				}
