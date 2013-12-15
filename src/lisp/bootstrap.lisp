@@ -5,12 +5,12 @@
 
 (defun start-application()
 	"Start up the application"
-	(setf *game-repository* (make-instance 'game-repository))
-	(repository::load-data *game-repository*)
+;	(setf *game-repository* (make-instance 'game-repository))
+;	(repository::load-data *game-repository*)
 	(setf *ht-server* 
-		(start (make-instance 'easy-acceptor 
-													:port 8080
-													:document-root #p"../web/"))))
+		(start (make-instance 'acceptor 
+													:port 8080))))
+;													:document-root #p"../web/"))))
 
 (defun stop-application()
 	"Stop the application cleanly"
