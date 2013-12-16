@@ -1,16 +1,4 @@
 (in-package :fate3)
-
-;(push( create-folder-dispatcher-and-handler "/js/" "../web/js/") *dispatch-table*)
-;(push( create-folder-dispatcher-and-handler "/img/" "../web/img/") *dispatch-table*)
-;(push( create-folder-dispatcher-and-handler "/css/" "../web/css/") *dispatch-table*)
-;(push (create-static-file-dispatcher-and-handler "/index.html" "../web/index.html") 
-;			*dispatch-table*)
-;(push (create-static-file-dispatcher-and-handler "/" "../web/index.html") 
-;			*dispatch-table*)
-
-;(setq *dispatch-table* 
-;			(list
-;			 (create-regex-dipatcher *games* games-url-handler)))
 												
 (defmethod json::encode-json((u uuid::uuid) 
 														 &optional (stream *json-output*)) 
@@ -20,36 +8,46 @@
 	(write-char #\" stream))
 
 (map-routes
-	("/" :get index))
+	("/" :get index)
+	("/js/:file" :get getJs)
+	("/js/:dir/:file" :get getJsDirFile)
+	("/css/:file" :get getCss))
+
+(defvar *root* (string "../web"))
 
 (defun index()
-		(let ((in (open "../web/index.html" :if-does-not-exist nil)))
+		(let ((in (open (concatenate 'string *root* "/index.html") :if-does-not-exist nil)))
 			(when in
-				(format nil (slurp-stream in)))))
+				(format nil "~a" (slurp-stream in)))))
+
+(defun getJs () 
+	(setf (content-type*) "application/javascript")
+	(let* ((jsFile (getf *route-params* :file))
+				 (path (concatenate 'string *root* "/js/" jsFile))
+				 (in (open path :if-does-not-exist nil)))
+		(log-message* :WARN (concatenate 'string "get jsfile: " jsFile))
+		(when in
+			(format nil "~a" (slurp-stream in)))))
+
+(defun getJsDirFile () 
+	(setf (content-type*) "application/javascript")
+	(let* ((jsFile (getf *route-params* :file))
+				 (jsDir (getf *route-params* :dir))
+				 (path (concatenate 'string *root* "/js/" jsDir "/" jsFile))
+				 (in (open path :if-does-not-exist nil)))
+		(log-message* :WARN (concatenate 'string "path: " path "dir: " jsDir "file: " jsFile))
+		(when in
+			(format nil "~a" (slurp-stream in)))))
+
+(defun getCss () 
+	(setf (content-type*) "text/css")
+	(let ((cssFile (getf *route-params* :file)))
+		(let ((in (open (concatenate 'string *root* "/css/" cssFile) :if-does-not-exist nil)))
+			(log-message* :WARN (concatenate 'string "file: " cssFile))
+			(when in
+				(format nil "~a" (slurp-stream in))))))
 
 (defun slurp-stream (stream)
-  (let ((seq (make-string (file-length stream))))
+  (let ((seq (make-string (file-length stream) :initial-element #\Space)))
     (read-sequence seq stream)
     seq))
-
-
-;(defun get-id-from-uri()
-;	"Returns the id from the URI request"
-;	(car (cl-ppcre:all-matches-as-strings
-;(define-easy-handler (index :uri *games* :default-request-type :get) () 
-
-;(defun games-url-handler
-;	(setf (content-type*) "application/json")
-;	(let ((request-type (request-method *request*)))
-;		(cond ((eq request-type :get)
-;					 (encode-json-to-string (repository::list-data *game-repository*)))
-;					((eq request-type :post)
-;					 (let* ((json (raw-post-data :force-text t))
-;									(decoded-json (decode-json-from-string json))
-;									(new-game (make-instance 'game 
-;																					 :id ;(if (assoc :id decoded-json :test #'equalp)
-;																								;	 (uuid::make-uuid-from-string (cdr (assoc :id decoded-json)))
-;																									 (uuid::make-v4-uuid);)
-;																					 :name (cdr (assoc :name decoded-json)) 
-;																					 :setting (cdr (assoc :setting decoded-json)))))
-;						 (encode-json-to-string new-game))))))
