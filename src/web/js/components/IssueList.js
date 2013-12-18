@@ -5,19 +5,25 @@ App.IssueListComponent = Ember.Component.extend({
 						if( !newAspect.trim()) {return;}
 						var store = this.get('targetObject.store');
 						var current = this.get('current')
-						var recordName = 'CurrentIssue'
+						var game = this.get('parent')
+						var current = this.get('current')
+						var recordName = 'currentIssue'
 						if( !current) {
-								recordName="PendingIssue"
+								recordName="pendingIssue"
 						}
 						var issue = store.createRecord(recordName, {
 								name: newAspect,
-								current: this.get('current'),
-								game: this.get('parent')
+								current: current
 						})
-						this.set('newIssue','')
+						if( current) {
+								game.get('currentIssues').pushObject( issue)
+						} else {
+								game.get('pendingIssues').pushObject( issue)
+						}
+						issue.set('game', game)
+						game.save()
 						issue.save()
-						this.get('list').pushObject( issue)
-						
+						this.set('newIssue','')
 				}
 		},
 		current: true,

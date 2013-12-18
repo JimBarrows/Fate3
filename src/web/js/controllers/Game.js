@@ -29,7 +29,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 						var newPlace = this.store.createRecord( 'place', {
 								name: this.get('newPlaceName'),
 								highConcept: this.get('newPlaceHighConcept'),
-								trouble: this.get('newPlaaceTrouble'),
+								trouble: this.get('newPlaceTrouble'),
 								game: game
 						})
 

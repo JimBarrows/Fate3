@@ -9,11 +9,18 @@
 
 (map-routes
 	("/" :get index)
-	("/js/:file" :get getJs)
-	("/fonts/:file" :get getFonts)
-	("/js/:dir/:file" :get getJsDirFile)
-	("/css/:file" :get getCss)
-	("/api/v1/games" :get get-games :post postGames))
+	("/js/:file" :get get-js)
+	("/fonts/:file" :get get-fonts)
+	("/js/:dir/:file" :get get-js-dir-file)
+	("/css/:file" :get get-css)
+	("/api/v1/games" :get get-games :post post-games)
+	("/api/v1/currentIssues" :post post-currrent-issues)
+)
+
+(defun post-current-issues()
+	(let* (( name (getf *route-params* :name))
+				 ( current (getf *route-params* :current))
+				 ( game (getf *route-params* :game)))))
 
 (defun get-games() 
 	(let (( game-list (repository::list-data *game-repository*)))
@@ -23,35 +30,37 @@
 				(format nil "{\"game\": []}"))))
 
 
-(defun postGames()
-	(let* ((name (getf *route-params* :name))
-				 (setting (getf *route-params* :setting))
+(defun post-games()
+	(let* ((input-string (hunchentoot::raw-post-data :force-text t))
+				 (input-json (rest (first (decode-json-from-string input-string))))
+				 (name (rest (assoc :name input-json)))
+				 (setting (rest (assoc :setting input-json)))
 				 (newGame (make-instance 'game :name name :setting setting)))
 		(repository::add *game-repository* newGame )
-		(json:encode-json-to-string newGame)))
+		(format nil "{ \"game\": ~a}" (json:encode-json-to-string newGame))))
 
 (defun index()
 		(let* ((path (concatenate 'string *web-root* "/index.html")))
 			(handle-static-file path)))
 
-(defun getJs () 
+(defun get-js () 
 	(let* ((jsFile (getf *route-params* :file))
 				 (path (concatenate 'string *web-root* "/js/" jsFile)))
 			(handle-static-file path)))
 
-(defun getFonts () 
+(defun get-fonts () 
 	(let* ((jsFile (getf *route-params* :file))
 				 (path (concatenate 'string *web-root* "/fonts/" jsFile)))
 		(handle-static-file path)))
 
-(defun getJsDirFile () 
+(defun get-js-dir-file () 
 	(let* ((jsFile (getf *route-params* :file))
 				 (jsDir (getf *route-params* :dir))
 				 (path (concatenate 'string *web-root* "/js/" jsDir "/" jsFile)))
 		(handle-static-file path)))
 
 
-(defun getCss () 
+(defun get-css () 
 	(setf (content-type*) "text/css")
 	(let* ((cssFile (getf *route-params* :file))
 				(path (concatenate 'string *web-root* "/css/" cssFile)))

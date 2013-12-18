@@ -76,8 +76,9 @@
 				 :initform "New Game")
 	 (setting :initarg :setting
 						:initform "Setting / Scale")
+	 (current-issues :initform '())
 ))
-;	 (current-issues :initform '())
+;	 
 ;	 (impending-issues :initform '())
 ;	 (faces :initform '())
 ;	 (places :initform '())

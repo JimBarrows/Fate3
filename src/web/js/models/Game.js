@@ -11,7 +11,7 @@ App.Game = DS.Model.extend({
 		defaultNumberOfStressBoxes: DS.attr('number', {defaultValue: 2}),
 		defaultConsequenceSlots: DS.attr('string', {defaultValue: '2/4/6'}),
 		skillPyramidOrColumns: DS.attr('string', {defaultValue: 'columns'}),
-		currentIssues: DS.hasMany('currentIssue', {async:'true'}),
+		currentIssues: DS.hasMany('currentIssue', {async: 'true'}),
 		pendingIssues: DS.hasMany('pendingIssue', {async:'true'}),
 		faces: DS.hasMany('characterRecord', {async:'true'}),
 		places: DS.hasMany('place', {async:'true'}),
