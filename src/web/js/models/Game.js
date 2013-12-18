@@ -11,13 +11,13 @@ App.Game = DS.Model.extend({
 		defaultNumberOfStressBoxes: DS.attr('number', {defaultValue: 2}),
 		defaultConsequenceSlots: DS.attr('string', {defaultValue: '2/4/6'}),
 		skillPyramidOrColumns: DS.attr('string', {defaultValue: 'columns'}),
-		currentIssues: DS.hasMany('CurrentIssue', {async:'true'}),
-		pendingIssues: DS.hasMany('PendingIssue', {async:'true'}),
-		faces: DS.hasMany('CharacterRecord', {async:'true'}),
-		places: DS.hasMany('Place', {async:'true'}),
-		skills: DS.hasMany('SkillDescription', {async:'true'}),
-		stunts: DS.hasMany('StuntDescription', {async:'true'}),
-		extras: DS.hasMany('ExtraDescription', {async:'true'})
+		currentIssues: DS.hasMany('currentIssue', {async:'true'}),
+		pendingIssues: DS.hasMany('pendingIssue', {async:'true'}),
+		faces: DS.hasMany('characterRecord', {async:'true'}),
+		places: DS.hasMany('place', {async:'true'}),
+		skills: DS.hasMany('skillDescription', {async:'true'}),
+		stunts: DS.hasMany('stuntDescription', {async:'true'}),
+		extras: DS.hasMany('extraDescription', {async:'true'})
 });
 
 App.PendingIssue = DS.Model.extend({
@@ -36,8 +36,8 @@ App.Place = DS.Model.extend({
 		name: DS.attr('string'),
 		highConcept: DS.attr('string'),
 		trouble: DS.attr('string'),
-		aspects: DS.hasMany('Aspect', {async:'true'}),
-		game: DS.belongsTo('Game')
+		aspects: DS.hasMany('aspect', {async:'true'}),
+		game: DS.belongsTo('game')
 })
 
 App.SkillDescription = DS.Model.extend({
@@ -47,13 +47,13 @@ App.SkillDescription = DS.Model.extend({
 		createAdvantage: DS.attr('boolean'),
 		attack: DS.attr('boolean'),
 		defend: DS.attr('boolean'),
-		game: DS.belongsTo('Game')
+		game: DS.belongsTo('game')
 })
 
 App.StuntDescription = DS.Model.extend({
 		name: DS.attr('string'),
 		description: DS.attr('string'),
-		game: DS.belongsTo('Game')
+		game: DS.belongsTo('game')
 })
 
 App.ExtraDescription = DS.Model.extend({
@@ -65,12 +65,14 @@ App.ExtraDescription = DS.Model.extend({
 		createAnAdvantage: DS.attr('string'),
 		attack: DS.attr('string'),
 		defend: DS.attr('string'),
-		game: DS.belongsTo('Game')
+		game: DS.belongsTo('game')
 })
 
+/*
 App.SkillDescription.FIXTURES = [
 		{ id: 1, name: 'Athletics', description: 'Athletics description', 
 			overcome: true, createAdvantage: true, attack: true, defend: true},
 		{ id: 1, name: 'Burglary', description: 'Burglary description', 
 			overcome: true, createAdvantage: true, attack: true, defend: true}
 ]
+*/

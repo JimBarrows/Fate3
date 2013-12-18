@@ -10,44 +10,49 @@
 (map-routes
 	("/" :get index)
 	("/js/:file" :get getJs)
+	("/fonts/:file" :get getFonts)
 	("/js/:dir/:file" :get getJsDirFile)
-	("/css/:file" :get getCss))
+	("/css/:file" :get getCss)
+	("/api/v1/games" :get get-games :post postGames))
 
-(defvar *root* (string "../web"))
+(defun get-games() 
+	(let (( game-list (repository::list-data *game-repository*)))
+		(if game-list
+				(format nil "{\"game\": ~a}" 
+						(json:encode-json-to-string game-list))
+				(format nil "{\"game\": []}"))))
+
+
+(defun postGames()
+	(let* ((name (getf *route-params* :name))
+				 (setting (getf *route-params* :setting))
+				 (newGame (make-instance 'game :name name :setting setting)))
+		(repository::add *game-repository* newGame )
+		(json:encode-json-to-string newGame)))
 
 (defun index()
-		(let ((in (open (concatenate 'string *root* "/index.html") :if-does-not-exist nil)))
-			(when in
-				(format nil "~a" (slurp-stream in)))))
+		(let* ((path (concatenate 'string *web-root* "/index.html")))
+			(handle-static-file path)))
 
 (defun getJs () 
-	(setf (content-type*) "application/javascript")
 	(let* ((jsFile (getf *route-params* :file))
-				 (path (concatenate 'string *root* "/js/" jsFile))
-				 (in (open path :if-does-not-exist nil)))
-		(log-message* :WARN (concatenate 'string "get jsfile: " jsFile))
-		(when in
-			(format nil "~a" (slurp-stream in)))))
+				 (path (concatenate 'string *web-root* "/js/" jsFile)))
+			(handle-static-file path)))
+
+(defun getFonts () 
+	(let* ((jsFile (getf *route-params* :file))
+				 (path (concatenate 'string *web-root* "/fonts/" jsFile)))
+		(handle-static-file path)))
 
 (defun getJsDirFile () 
-	(setf (content-type*) "application/javascript")
 	(let* ((jsFile (getf *route-params* :file))
 				 (jsDir (getf *route-params* :dir))
-				 (path (concatenate 'string *root* "/js/" jsDir "/" jsFile))
-				 (in (open path :if-does-not-exist nil)))
-		(log-message* :WARN (concatenate 'string "path: " path "dir: " jsDir "file: " jsFile))
-		(when in
-			(format nil "~a" (slurp-stream in)))))
+				 (path (concatenate 'string *web-root* "/js/" jsDir "/" jsFile)))
+		(handle-static-file path)))
+
 
 (defun getCss () 
 	(setf (content-type*) "text/css")
-	(let ((cssFile (getf *route-params* :file)))
-		(let ((in (open (concatenate 'string *root* "/css/" cssFile) :if-does-not-exist nil)))
-			(log-message* :WARN (concatenate 'string "file: " cssFile))
-			(when in
-				(format nil "~a" (slurp-stream in))))))
-
-(defun slurp-stream (stream)
-  (let ((seq (make-string (file-length stream) :initial-element #\Space)))
-    (read-sequence seq stream)
-    seq))
+	(let* ((cssFile (getf *route-params* :file))
+				(path (concatenate 'string *web-root* "/css/" cssFile)))
+		(handle-static-file path)))

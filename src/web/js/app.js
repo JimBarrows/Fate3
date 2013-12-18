@@ -1,6 +1,8 @@
 App = Ember.Application.create();
 
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
+App.ApplicationAdapter = DS.RESTAdapter.extend({
+		namespace: 'api/v1'
+});
 
 Ember.RadioButton = Ember.View.extend({
     tagName : "input",
@@ -41,7 +43,3 @@ App.GameNewRoute = Ember.Route.extend({
 				return this.store.createRecord('game')
 		}
 })
-
-
-
-

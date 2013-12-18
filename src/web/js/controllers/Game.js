@@ -5,7 +5,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 				},
 				addFace: function() {
 						var game = this.get('content')
-						var newFace = this.store.createRecord( 'CharacterRecord', {
+						var newFace = this.store.createRecord( 'characterRecord', {
 								name: this.get('newFaceName'),
 								highConcept: this.get('newFaceHighConcept'),
 								trouble: this.get('newFaceTrouble'),
@@ -26,7 +26,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 				},
 				addPlace: function() {
 						var game = this.get('content')
-						var newPlace = this.store.createRecord( 'Place', {
+						var newPlace = this.store.createRecord( 'place', {
 								name: this.get('newPlaceName'),
 								highConcept: this.get('newPlaceHighConcept'),
 								trouble: this.get('newPlaaceTrouble'),
@@ -47,7 +47,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 				},
 				addSkill: function() {
 						var game = this.get('content')
-						var newSkill = this.store.createRecord( 'SkillDescription', {
+						var newSkill = this.store.createRecord( 'skillDescription', {
 								name: this.get('newSkillName'),
 								description: this.get('newSkillDescription'),
 								createAdvantage: this.get('newCreateAdvantage'),
@@ -74,7 +74,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 				},
 				addStunt: function() {
 						var game = this.get('content')
-						var newStunt = this.store.createRecord( 'StuntDescription', {
+						var newStunt = this.store.createRecord( 'stuntDescription', {
 								name: this.get('newStuntName'),
 								description: this.get('newStuntDescription'),
 								game: game
@@ -93,7 +93,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 				},
 				addExtra: function() {
 						var game = this.get('content')
-						var newExtra = this.store.createRecord( 'ExtraDescription', {
+						var newExtra = this.store.createRecord( 'extraDescription', {
 								name: this.get('newExtraName'),
 								description: this.get('newExtraDescription'),
 								permissions: this.get('newExtraPermissions'),

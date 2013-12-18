@@ -8,5 +8,6 @@
 (setf *lisp-errors-log-level* :info)
 (setf *lisp-warnings-log-level* :info)
 (defvar *http-stream* *standard-output*)
+(defvar *web-root* (string "../web"))
 
 (defvar *project-name* "Fate 3 Helper")

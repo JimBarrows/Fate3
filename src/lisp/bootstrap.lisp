@@ -5,7 +5,7 @@
 
 (defun start-application()
 	"Start up the application"
-;	(setf *game-repository* (make-instance 'game-repository))
+	(setf *game-repository* (make-instance 'game-repository))
 ;	(repository::load-data *game-repository*)
 	(setf *ht-server* 
 		(start (make-instance 'acceptor 
