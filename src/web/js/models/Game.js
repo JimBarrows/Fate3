@@ -11,13 +11,13 @@ App.Game = DS.Model.extend({
 		defaultNumberOfStressBoxes: DS.attr('number', {defaultValue: 2}),
 		defaultConsequenceSlots: DS.attr('string', {defaultValue: '2/4/6'}),
 		skillPyramidOrColumns: DS.attr('string', {defaultValue: 'columns'}),
-		currentIssues: DS.hasMany('currentIssue', {async: 'true'}),
-		pendingIssues: DS.hasMany('pendingIssue', {async:'true'}),
-		faces: DS.hasMany('characterRecord', {async:'true'}),
-		places: DS.hasMany('place', {async:'true'}),
-		skills: DS.hasMany('skillDescription', {async:'true'}),
-		stunts: DS.hasMany('stuntDescription', {async:'true'}),
-		extras: DS.hasMany('extraDescription', {async:'true'})
+		currentIssues: DS.hasMany('currentIssue'),
+		pendingIssues: DS.hasMany('pendingIssue'),
+		faces: DS.hasMany('characterRecord'),
+		places: DS.hasMany('place'),
+		skills: DS.hasMany('skillDescription'),
+		stunts: DS.hasMany('stuntDescription'),
+		extras: DS.hasMany('extraDescription')
 });
 
 App.PendingIssue = DS.Model.extend({

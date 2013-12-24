@@ -18,10 +18,13 @@
 )
 
 (defun post-current-issues()
-	(let* (( name (getf *route-params* :name))
-				 ( current (getf *route-params* :current))
-				 ( game (getf *route-params* :game)))))
-
+	(let* ((input-string (hunchentoot::raw-post-data :force-text t))
+				 (input-json (rest (first (decode-json-from-string input-string))))
+				 (name (rest (assoc :name input-json)))
+				 (current (rest (assoc :current input-json)))
+				 (game-id (rest (assoc :game input-json)))
+				 (issue (make-instance 'aspect :name name)))))
+		
 (defun get-games() 
 	(let (( game-list (repository::list-data *game-repository*)))
 		(if game-list
