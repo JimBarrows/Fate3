@@ -20,6 +20,10 @@ App.Game = DS.Model.extend({
 		extras: DS.hasMany('extraDescription')
 });
 
+App.Game.FIXTURES = [
+		{ id: 1, name: "Game 1", setting: "setting 1"}
+]
+
 App.PendingIssue = DS.Model.extend({
 		name: DS.attr('string'),
 		current: DS.attr('boolean'),
@@ -68,11 +72,3 @@ App.ExtraDescription = DS.Model.extend({
 		game: DS.belongsTo('game')
 })
 
-/*
-App.SkillDescription.FIXTURES = [
-		{ id: 1, name: 'Athletics', description: 'Athletics description', 
-			overcome: true, createAdvantage: true, attack: true, defend: true},
-		{ id: 1, name: 'Burglary', description: 'Burglary description', 
-			overcome: true, createAdvantage: true, attack: true, defend: true}
-]
-*/

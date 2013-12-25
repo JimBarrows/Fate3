@@ -1,4 +1,4 @@
-App.GameNewController =  Ember.ObjectController.extend({
+App.GameFormController =  Ember.ObjectController.extend({
 		actions: {
 				changeTab: function( newTab) {
 						this.set('currentTab', newTab)
@@ -126,18 +126,7 @@ App.GameNewController =  Ember.ObjectController.extend({
 						var game = this.get('model')
 						var dis = this 
 						game.save().then( function( post) {
-								dis.get('newPendingIssues').forEach( function( item) {
-										post.get('pendingIssues').pushObject( item)
-										item.set('current', false)
-										item.set('game', post)
-										item.save()
-								})
-								dis.get('newCurrentIssues').forEach( function( item) {
-										post.get('currentIssues').pushObject( item)
-										item.set('current', true)
-										item.set('game', post)
-										item.save()
-								})
+								dis.transitionToRoute('game.edit', post)
 						})
 																								
 				}
@@ -150,10 +139,6 @@ App.GameNewController =  Ember.ObjectController.extend({
 		newFaceHighConcept: '',
 
 		newFaceTrouble: '',
-
-		newCurrentIssues: [],
-
-		newPendingIssues:  [],
 
 		isIssuesTab: function() { return this.get('currentTab') == 'issues'}.property('currentTab'),
 
@@ -171,4 +156,8 @@ App.GameNewController =  Ember.ObjectController.extend({
 
 })
 
+App.GameNewController = App.GameFormController.extend({
+})
 
+App.GameEditController = App.GameFormController.extend({
+})
