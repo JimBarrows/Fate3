@@ -20,13 +20,6 @@ App.Router.map(function() {
 
 App.GamesRoute = Ember.Route.extend({
 
-		actions: {
-				addGame: function() {
-						console.log('GamesRoute.actions.addGame')
-						this.transitionTo('game.new')
-				}
-		},
-
 		model: function( params) {
 				return this.store.find('game');
 		}
@@ -35,7 +28,6 @@ App.GamesRoute = Ember.Route.extend({
 App.GameNewRoute = Ember.Route.extend({
 
 		model: function() {
-				console.log('GameNewRoute.model')
 				return this.store.createRecord('game')
 		}
 })
