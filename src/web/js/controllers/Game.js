@@ -11,10 +11,13 @@ App.GameFormController =  Ember.ObjectController.extend({
 								trouble: this.get('newFaceTrouble'),
 								game: game
 						})
-
-						var faces = game.get('faces')
 						
-						faces.pushObject( newFace)
+						newFace.save().then( function() {
+								
+								var faces = game.get('faces')
+						
+								faces.pushObject( newFace)
+						})
 
 						this.set('newFaceName', '')
 						this.set('newFaceHighConcept', '')
@@ -33,9 +36,12 @@ App.GameFormController =  Ember.ObjectController.extend({
 								game: game
 						})
 
-						var places = game.get('places')
+						newPlace.save().then( function() {
+								var places = game.get('places')
 						
-						places.pushObject( newPlace)
+								places.pushObject( newPlace)
+						})
+
 
 						this.set('newPlaceName', '')
 						this.set('newPlaceHighConcept', '')

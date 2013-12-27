@@ -4,13 +4,15 @@ App.AspectListComponent = Ember.Component.extend({
 						var newAspect = this.get('aspect')
 						if( !newAspect.trim()) {return;}
 						var list = this.get('list')
-						var store = this.get('targetObject.store')
-						var newAspect = store.createRecord('aspect', {
+						var store = this.get('store')
+						var parent = this.get('parent')
+						var newAspect = store.createRecord(this.get('recordName'), {
 								name: newAspect
+								,game: parent
 						})
-						list.pushObject( newAspect)
+						newAspect.save().then( function(){
+								list.pushObject( newAspect)
+						})
 				}
-		},
-		aspect: '',
-		list: []
+		}
 });

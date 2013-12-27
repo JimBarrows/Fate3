@@ -1,3 +1,20 @@
+DS.JSONSerializer.reopen({
+    serializeHasMany : function(record, json, relationship) {
+        var key = relationship.key;
+
+        var relationshipType = DS.RelationshipChange.determineRelationshipType(
+                record.constructor, relationship);
+
+        if (relationshipType === 'manyToNone'
+                || relationshipType === 'manyToMany'
+                || relationshipType === 'manyToOne') {
+            json[key] = Ember.get(record, key).mapBy('id');
+            // TODO support for polymorphic manyToNone and manyToMany
+            // relationships
+        }
+    }
+});
+
 App.Game = DS.Model.extend({
 
 		name: DS.attr('string'),
@@ -11,18 +28,14 @@ App.Game = DS.Model.extend({
 		defaultNumberOfStressBoxes: DS.attr('number', {defaultValue: 2}),
 		defaultConsequenceSlots: DS.attr('string', {defaultValue: '2/4/6'}),
 		skillPyramidOrColumns: DS.attr('string', {defaultValue: 'columns'}),
-		currentIssues: DS.hasMany('currentIssue'),
-		pendingIssues: DS.hasMany('pendingIssue'),
+		currentIssues: DS.hasMany('currentIssue',{async:true}),
+		pendingIssues: DS.hasMany('pendingIssue',{async:true}),
 		faces: DS.hasMany('characterRecord'),
 		places: DS.hasMany('place'),
 		skills: DS.hasMany('skillDescription'),
 		stunts: DS.hasMany('stuntDescription'),
 		extras: DS.hasMany('extraDescription')
 });
-
-App.Game.FIXTURES = [
-		{ id: 1, name: "Game 1", setting: "setting 1"}
-]
 
 App.PendingIssue = DS.Model.extend({
 		name: DS.attr('string'),
@@ -35,6 +48,8 @@ App.CurrentIssue = DS.Model.extend({
 		current: DS.attr('boolean'),
 		game: DS.belongsTo('game')
 })
+
+
 
 App.Place = DS.Model.extend({
 		name: DS.attr('string'),
@@ -72,3 +87,11 @@ App.ExtraDescription = DS.Model.extend({
 		game: DS.belongsTo('game')
 })
 
+App.Game.FIXTURES = [
+		{ id: 1, name: "Game 1", setting: "setting 1",
+			currentIssues: [1],
+			pendingIssues: [2]}
+]
+
+App.CurrentIssue.FIXTURES=[{ id: 1, name:'ci 0', current:true, game: 1}]
+App.PendingIssue.FIXTURES=[{ id: 2, name:'pi 0', current:false, game: 1}]
