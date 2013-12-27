@@ -87,9 +87,11 @@ App.GameFormController =  Ember.ObjectController.extend({
 								game: game
 						})
 
-						var stunts = game.get('stunts')
+						newStunt.save().then( function() {
+								var stunts = game.get('stunts')
 						
-						stunts.pushObject( newStunt)
+								stunts.pushObject( newStunt)
+						})
 
 						this.set('newStuntName', '')
 						this.set('newStuntDescription', '')
@@ -112,9 +114,11 @@ App.GameFormController =  Ember.ObjectController.extend({
 								game: game
 						})
 
-						var extras = game.get('extras')
+						newExtra.save().then( function() {
+								var extras = game.get('extras')
 						
-						extras.pushObject( newExtra)
+								extras.pushObject( newExtra)
+						})
 
 						this.set('newExtraName', '')
 						this.set('newExtraDescription', '')

@@ -5,10 +5,12 @@ App.IssueListComponent = Ember.Component.extend({
 						var list = this.get('list')
 						var store =this.get('store')
 						var recordName = this.get('recordName')
+						var currentIssue = (recordName == 'currentIssue')
 						if( !newAspect.trim()) {return;}
 						
 						var newRecord = store.createRecord(recordName, {
 								name: newAspect,
+								current: currentIssue,
 								game: this.get('parent')
 						})
 						newRecord.save().then( function() {
