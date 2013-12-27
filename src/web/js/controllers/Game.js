@@ -63,9 +63,10 @@ App.GameFormController =  Ember.ObjectController.extend({
 								game: game
 						})
 
-						var skills = game.get('skills')
-						
-						skills.pushObject( newSkill)
+						newSkill.save().then( function() {
+								var skills = game.get('skills')
+								skills.pushObject( newSkill)
+						})
 
 						this.set('newSkillName', '')
 						this.set('newSkillDescription', '')

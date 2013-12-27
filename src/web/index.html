@@ -154,7 +154,9 @@
 											placeholder="New" }}
 										</td>
 										<td>
-											<button {{action addFace}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></button>
+											<button {{action addFace}} class="btn btn-default btn-xs">
+												<span class="glyphicon glyphicon-plus"/>
+											</button>
 										</td>
 									</tr>
 									{{#each face in faces}}
@@ -162,7 +164,11 @@
 										<td>{{face.name}}</td>
 										<td>{{face.highConcept}}</td>
 										<td>{{face.trouble}}</td>
-										<td><button {{action deleteFace face}} class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"/></button></td>
+										<td>
+											<button {{action deleteFace face}} class="btn btn-danger btn-xs">
+												<span class="glyphicon glyphicon-trash"/>
+											</button>
+										</td>
 									</tr>
 									{{/each}}
 								</tbody>
@@ -202,7 +208,9 @@
 											placeholder="New" }}
 										</td>
 										<td>
-											<button {{action addPlace}} class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"/></button>
+											<button {{action addPlace}} class="btn btn-default btn-xs">
+												<span class="glyphicon glyphicon-plus"/>
+											</button>
 										</td>
 									</tr>
 									{{#each place in places}}
@@ -210,7 +218,11 @@
 										<td>{{place.name}}</td>
 										<td>{{place.highConcept}}</td>
 										<td>{{place.trouble}}</td>
-										<td><button {{action deletePlace place}} class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"/></button></td>
+										<td>
+											<button {{action deletePlace place}} class="btn btn-danger btn-xs">
+												<span class="glyphicon glyphicon-trash"></span>
+											</button>
+										</td>
 									</tr>
 									{{/each}}
 								</tbody>
