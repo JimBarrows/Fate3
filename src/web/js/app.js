@@ -1,11 +1,11 @@
 App = Ember.Application.create();
 
-/*
+
 App.ApplicationAdapter = DS.RESTAdapter.extend({
 		namespace: 'api/v1'
 });
-*/
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+//App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 App.Router.map(function() {
 

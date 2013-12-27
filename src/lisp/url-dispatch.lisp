@@ -43,28 +43,28 @@
 		(format nil "{ \"game\": ~a}" (json:encode-json-to-string newGame))))
 
 (defun index()
-		(let* ((path (concatenate 'string *web-root* "/index.html")))
-			(handle-static-file path)))
-
-(defun get-js () 
-	(let* ((jsFile (getf *route-params* :file))
-				 (path (concatenate 'string *web-root* "/js/" jsFile)))
+		(let* ((path (merge-pathnames #p"index.html" *web-root*)))
 			(handle-static-file path)))
 
 (defun get-fonts () 
-	(let* ((jsFile (getf *route-params* :file))
-				 (path (concatenate 'string *web-root* "/fonts/" jsFile)))
+	(let* ((font-file (getf *route-params* :file))
+				 (path (merge-pathnames font-file *font-root*)))
 		(handle-static-file path)))
 
+(defun get-js () 
+	(let* ((js-file (getf *route-params* :file))
+				 (path (merge-pathnames js-file *js-root*)))
+			(handle-static-file path)))
+
 (defun get-js-dir-file () 
-	(let* ((jsFile (getf *route-params* :file))
-				 (jsDir (getf *route-params* :dir))
-				 (path (concatenate 'string *web-root* "/js/" jsDir "/" jsFile)))
+	(let* ((js-file (getf *route-params* :file))
+				 (js-dir (getf *route-params* :dir))
+				 (path (merge-pathnames (pathname (concatenate 'string js-dir "/" js-file)) *js-root*)))
 		(handle-static-file path)))
 
 
 (defun get-css () 
 	(setf (content-type*) "text/css")
-	(let* ((cssFile (getf *route-params* :file))
-				(path (concatenate 'string *web-root* "/css/" cssFile)))
+	(let* ((css-file (getf *route-params* :file))
+				 (path (merge-pathnames css-file *css-root*)))
 		(handle-static-file path)))
