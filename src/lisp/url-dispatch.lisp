@@ -13,18 +13,29 @@
 	("/fonts/:file" :get get-fonts)
 	("/js/:dir/:file" :get get-js-dir-file)
 	("/css/:file" :get get-css)
+	("/api/v1/games/:gameid" :get get-game )
 	("/api/v1/games" :get get-games :post post-games)
 	("/api/v1/currentIssues" :post post-currrent-issues)
 )
+
+(trace :print-all t uuid:make-uuid-from-string repository::find-by-id)
 
 (defun post-current-issues()
 	(let* ((input-string (hunchentoot::raw-post-data :force-text t))
 				 (input-json (rest (first (decode-json-from-string input-string))))
 				 (name (rest (assoc :name input-json)))
-				 (current (rest (assoc :current input-json)))
 				 (game-id (rest (assoc :game input-json)))
 				 (issue (make-instance 'aspect :name name)))))
-		
+
+(defun get-game()
+	(let* (( game-id-string (getf *route-params* :gameid))
+				 ( game-id (uuid:make-uuid-from-string game-id-string))
+				 ( game (repository::find-by-id *game-repository* game-id)))
+		(if game
+				(format nil "{\"game\": ~a}"
+								(json:encode-json-to-string game))
+				(format nil "{\"game\": []}"))))
+
 (defun get-games() 
 	(let (( game-list (repository::list-data *game-repository*)))
 		(if game-list

@@ -14,6 +14,7 @@ App.Router.map(function() {
 		this.resource('game', {path: "/game"}, function() {
 				this.route('new')
 				this.route('index', {path:"/:game_id"})
+				this.route('delete', {path:"/:game_id/delete"})
 				this.route('edit', {path:"/:game_id/edit"})
 		})
 });
@@ -36,6 +37,18 @@ App.GameEditRoute = Ember.Route.extend({
 
 		model: function(params, transition, queryParams) {
 				return this.get('store').find('game', params.game_id)
+		}
+})
+
+App.GameDeleteRoute = Ember.Route.extend({
+
+		model: function(params, transition, queryParams) {
+				return this.get('store').find('game', params.game_id)
+		},
+		afterModel: function( resolvedModel, transition, queryParams) {
+				resolvedModel.deleteRecord()
+				resolvedModel.save()
+				this.transitionTo( 'games')
 		}
 })
 
