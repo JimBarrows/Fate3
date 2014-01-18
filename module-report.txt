@@ -1,0 +1,4 @@
+Symbols used in each CG module:
+
+CG.BASE   (ID VALUE INDEX NAME PATH)
+

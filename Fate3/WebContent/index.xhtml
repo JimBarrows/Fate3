@@ -1,16 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    <ui:composition template="/templates/master.xhtml">    
-    
-        
-        <ui:define name="content">
-           <p:spinner />  
-        </ui:define>
-               
-    </ui:composition>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/master.xhtml">
+
+
+	<ui:define name="content">
+		<h:form>			
+			<p:panel header="Games">
+				<p:dataTable var="game" value="#{games.list}">
+					<p:column headerText="Name">
+						<h:outputText value="#{game.name}" />
+					</p:column>
+
+					<p:column headerText="Setting">
+						<h:outputText value="#{game.setting}" />
+					</p:column>
+
+					<p:column headerText="Scale">
+						<h:outputText value="#{game.scale}" />
+					</p:column>
+
+				</p:dataTable>
+				<f:facet name="actions">
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" action="createGame">
+						<h:outputText styleClass="ui-icon ui-icon-plusthick" />
+					</h:commandLink>
+				</f:facet>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
 </html>
