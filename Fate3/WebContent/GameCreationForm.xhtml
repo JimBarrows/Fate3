@@ -10,10 +10,11 @@
 
 	<ui:define name="content">
 		<h:form>
-			
-			<h1>Create Game</h1>
-				
-			<h:panelGrid columns="2">
+
+			<p:panelGrid columns="2">
+				<f:facet name="header">  
+        			Create Game  
+    			</f:facet>
 				<h:outputLabel for="name" value="Name" />
 				<p:inputText id="name" value="#{gameCreationWizard.name}"
 					required="true" />
@@ -24,10 +25,11 @@
 
 				<h:outputLabel for="scale" value="Scale" />
 				<p:inputText id="scale" value="#{gameCreationWizard.scale}" />
-			</h:panelGrid>
-
-			<h:commandButton value="Save" action="#{gameCreationWizard.save}"
-				icon="ui-icon-disk" />
+				<f:facet name="footer">
+					<p:commandButton value="Save" action="#{gameCreationWizard.save}"
+						icon="ui-icon-disk" />
+				</f:facet>
+			</p:panelGrid>
 
 		</h:form>
 
