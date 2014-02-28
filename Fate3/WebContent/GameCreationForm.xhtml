@@ -10,7 +10,8 @@
 
 	<ui:define name="content">
 		<h:form>
-
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" showSummary="true" />
 			<p:panelGrid columns="2">
 				<f:facet name="header">  
         			Create Game  
@@ -30,7 +31,57 @@
 						icon="ui-icon-disk" />
 				</f:facet>
 			</p:panelGrid>
+			<p:wizard flowListener="#{gameCreationWizard.onFlowProcess}">
 
+				<p:tab id="issues" title="Issues">
+					<p:panel header="Issues">
+						<h:panelGrid columns="2">
+							
+							<h:panelGrid id="currentIssuePanel" columns="1">
+								<f:facet name="header">Current Issues</f:facet>
+								<h:panelGroup>
+									<p:inputText id="newCurrentIssue"
+										value="#{gameCreationWizard.newCurrentIssue.name}" />
+									<p:commandButton value="Add"
+										update="currentIssueList newCurrentIssue"
+										action="#{gameCreationWizard.createNewCurrentIssue}"
+										partialSubmit="true">
+										<p:collector value="#{gameCreationWizard.newCurrentIssue}"
+											addTo="#{gameCreationWizard.currentIssues}" />
+									</p:commandButton>
+								</h:panelGroup>
+								<p:outputPanel id="currentIssueList">
+									<p:dataList value="#{gameCreationWizard.currentIssues}"
+										var="ci" itemType="disc">  
+    									#{ci.name}  
+									</p:dataList>
+								</p:outputPanel>
+							</h:panelGrid>
+
+							<h:panelGrid id="pendingIssuePanel" columns="1">
+								<f:facet name="header">Pending	 Issues</f:facet>
+								<h:panelGroup>
+									<p:inputText id="newPendingIssue"
+										value="#{gameCreationWizard.newPendingIssue.name}" />
+									<p:commandButton value="Add"
+										update="pendingIssueList newPendingIssue"
+										action="#{gameCreationWizard.createNewPendingIssue}"
+										partialSubmit="true">
+										<p:collector value="#{gameCreationWizard.newPendingIssue}"
+											addTo="#{gameCreationWizard.pendingIssues}" />
+									</p:commandButton>
+								</h:panelGroup>
+								<p:outputPanel id="pendingIssueList">
+									<p:dataList value="#{gameCreationWizard.pendingIssues}"
+										var="pi" itemType="disc">  
+    									#{pi.name}  
+									</p:dataList>
+								</p:outputPanel>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+			</p:wizard>
 		</h:form>
 
 	</ui:define>

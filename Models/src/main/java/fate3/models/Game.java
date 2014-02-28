@@ -1,11 +1,15 @@
 package fate3.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -27,9 +31,13 @@ public class Game implements Serializable {
 	@NotBlank
 	private String setting;
 	@NotBlank
-	private String scale;
-
-	private static final long serialVersionUID = 1L;
+	private String scale;	
+	
+	@OneToMany(mappedBy="game", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<PendingIssue> pendingIssues = new ArrayList<PendingIssue>();
+	
+	@OneToMany(mappedBy="game", cascade=CascadeType.ALL, orphanRemoval=true)
+	private List<CurrentIssue> currentIssues = new ArrayList<CurrentIssue>();
 
 	public Game() {
 		super();
@@ -106,5 +114,25 @@ public class Game implements Serializable {
 				"Game [id=%s, version=%s, name=%s, setting=%s, scale=%s]", id,
 				version, name, setting, scale);
 	}
+	private static final long serialVersionUID = 1L;
 
+	public List<PendingIssue> getPendingIssues() {
+		return pendingIssues;
+	}
+
+	public void setPendingIssues(List<PendingIssue> pendingIssues) {
+		this.pendingIssues = pendingIssues;
+	}
+
+	public List<CurrentIssue> getCurrentIssues() {
+		return currentIssues;
+	}
+
+	public void setCurrentIssues(List<CurrentIssue> currentIssues) {
+		this.currentIssues = currentIssues;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 }
